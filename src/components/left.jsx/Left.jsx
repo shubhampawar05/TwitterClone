@@ -9,8 +9,11 @@ import { CgProfile } from "react-icons/cg";
 import { CiCircleMore } from "react-icons/ci";
 import Avatar from "react-avatar";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Left = () => {
+  const {user}=useSelector((state)=>state.user)
+  console.log(user);
   return (
     <div className="w-[20%] h-screen  ">
       <div>
@@ -58,7 +61,7 @@ const Left = () => {
                 <FaXTwitter className=" text-3xl mr-3" />
                 Premium
               </li>
-              <Link to={"/profile"}>
+              <Link to={`/profile/${user?._id}`}>
                 {" "}
                 <li className=" flex hover:bg-gray-200 p-2 rounded-full items-center  ">
                   <CgProfile className=" text-3xl mr-3" />

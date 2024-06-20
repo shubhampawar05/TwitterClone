@@ -1,9 +1,18 @@
 import React from "react";
 import { IoMdArrowBack } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Avatar from "react-avatar";
+import useGetProfile from "../../hook/useGetProfile";
+import { useSelector } from "react-redux";
+
 
 const Profile = () => {
+  const {id} = useParams()
+  useGetProfile(id);
+  const {profile} = useSelector((state)=>state.user)
+  console.log(profile);
+
+
   return (
     <div className="w-[60%] px-4 border-l border-r border-[gray-500]">
       <div>
@@ -15,7 +24,7 @@ const Profile = () => {
             </div>
           </Link>
           <div className="ml-2">
-            <h1 className=" font-bold text-lg">SHubham </h1>
+            <h1 className=" font-bold text-lg">{profile.name} </h1>
             <p className=" text-gray-500 text-sm">10 post </p>
           </div>
         </div>
@@ -41,8 +50,8 @@ const Profile = () => {
 
         {/* profile name and user Name */}
         <div className=" p-4">
-          <h1 className=" font-bold text-xl">Shubham </h1>
-          <h1 className=" text-gray-500 text-sm">@shubham02</h1>
+          <h1 className=" font-bold text-xl">{profile.name} </h1>
+          <h1 className=" text-gray-500 text-sm">{profile.username}</h1>
         </div>
         {/* bio */}
         <p className=" px-4 text-md">

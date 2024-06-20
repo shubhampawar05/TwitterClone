@@ -8,7 +8,12 @@ import Feed from './components/feed/Feed'
 import Profile from './components/profile/Profile';
 import LoginPage from './page/LoginPage.jsx/LoginPage';
 
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+
+  import { useSelector } from 'react-redux';
 function App() {
+  
   
   return (
    <>
@@ -16,7 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}>
           <Route index element={<Feed />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="profile/:id" element={<Profile />} />
         </Route>
        
         <Route path="/login" element={<Login />}/>
@@ -24,6 +29,7 @@ function App() {
         <Route path="/loginPage" element={<LoginPage />}/>
      
       </Routes>
+      <ToastContainer position="top-right" autoClose={1000}/>
     </BrowserRouter>
    </>
   )
