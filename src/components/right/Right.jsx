@@ -10,7 +10,7 @@ const Right = () => {
   const {otherUser} = useSelector((state)=>state.user)
 
   return (
-    <div className=" w-[20%] ">
+    <div className=" w-[20%] ml-[2%] ">
       {/* search bar */}
       <div className=" flex items-center p-2 bg-gray-100 rounded-full outline-none">
         <CiSearch />

@@ -20,11 +20,22 @@ export const counterSlice = createSlice({
    getUserProfile:(state, action)=>{
     state.profile = action.payload
    },
+    followingUpdate:(state,action)=>{
+    // unfollow
+    if(state.user.following.includes(action.payload)){
+        state.user.following = state.user.following.filter((itemId)=>{
+            return itemId !== action.payload;
+        })
+    }else{
+        // follow
+        state.user.following.push(action.payload);
+    }
+}
    
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { getUser,getOtherUser,getUserProfile} = counterSlice.actions
+export const { getUser,getOtherUser,getUserProfile,followingUpdate} = counterSlice.actions
 
 export default counterSlice.reducer

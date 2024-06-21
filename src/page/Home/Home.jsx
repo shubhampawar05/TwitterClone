@@ -12,7 +12,7 @@ const Home = () => {
   useGetMyTweets();
   return (
     <>
-      <div className=" flex  w-[80%] mx-auto border border-black ">
+      <div className=" flex max-w-screen-xl mx-auto ">
         <Left />
         <Outlet/>
         <Right />

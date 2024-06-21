@@ -1,23 +1,44 @@
-import React from "react";
 import { IoMdHome } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { IoIosNotifications } from "react-icons/io";
+import { HiOutlineLogout } from "react-icons/hi";
 import { MdOutlineMessage } from "react-icons/md";
 import { GoPeople } from "react-icons/go";
 import { FaXTwitter } from "react-icons/fa6";
 import { CgProfile } from "react-icons/cg";
 import { CiCircleMore } from "react-icons/ci";
-import Avatar from "react-avatar";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getOtherUser, getUser, getUserProfile } from "../../redux/UserSlice";
+import { getAllTweets } from "../../redux/TweetSlice";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const Left = () => {
-  const {user}=useSelector((state)=>state.user)
+  const {user} = useSelector((state)=>state.user)
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const logoutHandler = async () => {
+        try {
+            const res = await axios.get(`http://localhost:10000/api/v1/user/logout`);
+            dispatch(getUser(null));
+            dispatch(getOtherUser(null));
+            dispatch(getUserProfile(null));
+            dispatch(getAllTweets(null));
+            
+            navigate('/login');
+            toast.dismiss()
+            toast.success(res.data.message);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
   console.log(user);
   return (
-    <div className="w-[20%] h-screen  ">
+    <div className="w-[20%] h-screen border fixed  ">
       <div>
-        <div className=" p-2 border-b">
+        <div className=" py-3 px-2 border-b">
           {/* logo */}
           <svg
             viewBox="0 0 24 24"
@@ -30,7 +51,7 @@ const Left = () => {
             </g>
           </svg>{" "}
         </div>
-        <div className=" flex flex-col justify-between h-[93vh]  ">
+        <div className=" flex flex-col justify-between h-[93vh] border-r ">
           <div>
             {/* multipleitems */}
             <ul>
@@ -78,7 +99,7 @@ const Left = () => {
             </button>
           </div>
           {/* user profile */}
-          <div>
+          {/* <div>
             <div className=" flex  gap-2 items-center">
               <div>
                 <Avatar twitterHandle="sitebase" size="40" round={true} />
@@ -88,6 +109,13 @@ const Left = () => {
                 <p>user Name</p>
               </div>
             </div>
+          </div> */}
+          <div>
+          <li className=" flex hover:bg-gray-100 p-2 rounded-full items-center  "
+          onClick={logoutHandler}>
+                <HiOutlineLogout className=" text-3xl mr-3" />
+               LogOut
+              </li>
           </div>
         </div>
       </div>
