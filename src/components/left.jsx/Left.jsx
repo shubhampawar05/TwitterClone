@@ -25,6 +25,7 @@ const Left = () => {
             dispatch(getOtherUser(null));
             dispatch(getUserProfile(null));
             dispatch(getAllTweets(null));
+            localStorage.clear("token");
             
             navigate('/login');
             toast.dismiss()

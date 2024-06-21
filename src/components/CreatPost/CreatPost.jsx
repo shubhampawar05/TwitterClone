@@ -35,14 +35,17 @@ const CreatPost = () => {
       console.log("createPost response", res);
       if (res.data.success) {
         dispatch(getRefresh());
+        toast.dismiss();
         toast.success(res.data.message);
         setDescription(""); // Reset the description state
         inputRef.current.value = ""; // Reset the input field value
       } else {
+        toast.dismiss();
         toast.error("Failed to create post.");
       }
     } catch (error) {
       console.error("Error creating post", error);
+      toast.dismiss();
       toast.error("An error occurred while creating the post.");
     }
   };

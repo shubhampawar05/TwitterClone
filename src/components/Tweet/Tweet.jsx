@@ -34,9 +34,11 @@ const Tweet = ({ tweet }) => {
       );
       console.log(res);
       dispatch(getRefresh());
+      toast.dismiss();
       toast.success(res.data.message);
     } catch (error) {
       console.log(error);
+      toast.dismiss();
       toast.error("An error occurred while liking the tweet.");
     }
   };
@@ -60,6 +62,7 @@ const Tweet = ({ tweet }) => {
      
       console.log(res);
       dispatch(getRefresh());
+      toast.dismiss();
       toast.success(res.data.message);
     } catch (error) {
       console.log(error);

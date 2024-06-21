@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
  allTweets:null,
   refresh:false,
-  isActive:false
+  isActive:true
 }
 
 export const TweetSlice = createSlice({

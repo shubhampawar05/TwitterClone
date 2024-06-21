@@ -46,6 +46,7 @@ const Profile = () => {
       console.log(res);
       dispatch(followingUpdate(id));
       dispatch(getRefresh());
+      toast.dismiss();
       toast.success(res.data.message);
     } catch (error) {
       console.log(error);
