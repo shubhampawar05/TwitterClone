@@ -20,7 +20,7 @@ const Left = () => {
     const dispatch = useDispatch();
     const logoutHandler = async () => {
         try {
-            const res = await axios.get(`http://localhost:10000/api/v1/user/logout`);
+            const res = await axios.get(`https://twitterclonebackend-vt4v.onrender.com/api/v1/user/logout`);
             dispatch(getUser(null));
             dispatch(getOtherUser(null));
             dispatch(getUserProfile(null));

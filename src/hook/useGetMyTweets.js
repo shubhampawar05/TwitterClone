@@ -17,7 +17,7 @@ const useGetMyTweets = () => {
       const headers = {
         Authorization: `Bearer ${token}`,
       };
-      const res = await axios.get(`http://localhost:10000/api/v1/tweet/alltweets`, { headers });
+      const res = await axios.get(`https://twitterclonebackend-vt4v.onrender.com/api/v1/tweet/alltweets`, { headers });
       console.log(res);
       dispatch(getAllTweets(res?.data?.tweets));
     } catch (error) {
@@ -29,7 +29,7 @@ const useGetMyTweets = () => {
       const headers = {
         Authorization: `Bearer ${token}`,
       };
-      const res = await axios.get(`http://localhost:10000/api/v1/tweet/followingtweets`, { headers });
+      const res = await axios.get(`https://twitterclonebackend-vt4v.onrender.com/api/v1/tweet/followingtweets`, { headers });
       console.log(res);
       dispatch(getAllTweets(res?.data?.tweets));
     } catch (error) {

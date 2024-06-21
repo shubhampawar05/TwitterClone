@@ -32,13 +32,13 @@ const Profile = () => {
       if (user?.following?.includes(id)) {
         // Unfollow
         res = await axios.get(
-          `http://localhost:10000/api/v1/user/UnFollow/${id}`,
+          `https://twitterclonebackend-vt4v.onrender.com/api/v1/user/UnFollow/${id}`,
           { headers }
         );
       } else {
         // Follow
         res = await axios.get(
-          `http://localhost:10000/api/v1/user/follow/${id}`,
+          `https://twitterclonebackend-vt4v.onrender.com/api/v1/user/follow/${id}`,
           { headers }
         );
       }

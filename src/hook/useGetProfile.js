@@ -13,7 +13,7 @@ const useGetProfile = (id) => {
         const headers = {
           Authorization: `Bearer ${token}`,
         };
-        const res = await axios.get(`http://localhost:10000/api/v1/user/profile/${id}`, { headers });
+        const res = await axios.get(`https://twitterclonebackend-vt4v.onrender.com/api/v1/user/profile/${id}`, { headers });
         dispatch(getUserProfile(res?.data?.userData)); // Ensure userData is correct as per your API response
       } catch (error) {
         console.log(error);

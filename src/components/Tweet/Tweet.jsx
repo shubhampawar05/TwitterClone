@@ -28,7 +28,7 @@ const Tweet = ({ tweet }) => {
         Authorization: `Bearer ${token}`,
       };
       const res = await axios.post(
-        `http://localhost:10000/api/v1/tweet/like/${id}`,
+        `https://twitterclonebackend-vt4v.onrender.com/api/v1/tweet/like/${id}`,
         {},
         { headers }
       );
@@ -53,7 +53,7 @@ const Tweet = ({ tweet }) => {
         Authorization: `Bearer ${token}`,
       };
       const res = await axios.post(
-       `http://localhost:10000/api/v1/tweet/delete/${id}`,
+       `https://twitterclonebackend-vt4v.onrender.com/api/v1/tweet/delete/${id}`,
         {},
         { headers }
       );

@@ -32,7 +32,7 @@ const LoginPage = () => {
       return;
     }
     try {
-      const BaseUrl = "http://localhost:10000/api/v1/user";
+      const BaseUrl = "https://twitterclonebackend-vt4v.onrender.com/api/v1/user";
       const headers = {
         "Content-Type": "application/json",
       };
