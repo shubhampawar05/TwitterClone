@@ -1,6 +1,6 @@
 export const  User_end_Point="http://localhost:10000/api/v1/user"
 export const Tweet_end_Pointt="http://localhost:10000/api/v1/tweet"
-
+export const Base_Url = 'https://twitterclonebackend-fhm1.onrender.com'
 export const timeSince = (timestamp) => {
     let time = Date.parse(timestamp);
     let now = Date.now();

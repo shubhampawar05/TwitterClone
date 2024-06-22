@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getRefresh,getIsActive } from "../../redux/TweetSlice";
 import { toast } from "react-toastify";
 import axios from "axios";
+import {Base_Url} from './../../Utils/Constants'
 
 const CreatPost = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const CreatPost = () => {
         Authorization: `Bearer ${token}`,
       };
       const res = await axios.post(
-        `https://twitterclonebackend-vt4v.onrender.com/api/v1/tweet/create`,
+        `${Base_Url}/api/v1/tweet/create`,
         { description },
         { headers }
       );

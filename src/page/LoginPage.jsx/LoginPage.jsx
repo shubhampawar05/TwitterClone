@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { getUser } from "../../redux/UserSlice";
+import {Base_Url} from './../../Utils/Constants'
 
 
 const LoginPage = () => {
@@ -32,7 +33,7 @@ const LoginPage = () => {
       return;
     }
     try {
-      const BaseUrl = "https://twitterclonebackend-vt4v.onrender.com/api/v1/user";
+      const BaseUrl = Base_Url ;
       const headers = {
         "Content-Type": "application/json",
       };

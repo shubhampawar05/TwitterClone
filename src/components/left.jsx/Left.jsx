@@ -13,14 +13,14 @@ import { getOtherUser, getUser, getUserProfile } from "../../redux/UserSlice";
 import { getAllTweets } from "../../redux/TweetSlice";
 import { toast } from "react-toastify";
 import axios from "axios";
-
+import {Base_Url} from './../../Utils/Constants'
 const Left = () => {
   const {user} = useSelector((state)=>state.user)
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const logoutHandler = async () => {
         try {
-            const res = await axios.get(`https://twitterclonebackend-vt4v.onrender.com/api/v1/user/logout`);
+            const res = await axios.get(`${Base_Url}/api/v1/user/logout`);
             dispatch(getUser(null));
             dispatch(getOtherUser(null));
             dispatch(getUserProfile(null));

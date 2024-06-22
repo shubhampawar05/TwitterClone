@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { getOtherUser } from '../redux/UserSlice';
+import {Base_Url} from './../Utils/Constants'
 
 const useOtherUser = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const useOtherUser = () => {
         const headers = {
           Authorization: `Bearer ${token}`,
         };
-        const res = await axios.get('https://twitterclonebackend-vt4v.onrender.com/api/v1/user/otherUser', { headers });
+        const res = await axios.get(`${Base_Url}/api/v1/user/otherUser`, { headers });
         console.log(res.data.otheruserData);
         dispatch(getOtherUser(res?.data?.otheruserData));
       } catch (error) {

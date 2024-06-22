@@ -9,7 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { getRefresh } from "../../redux/TweetSlice";
-import {timeSince} from './../../Utils/Constants'
+import {timeSince} from './../../Utils/Constants';
+import {Base_Url} from './../../Utils/Constants'
 
 const Tweet = ({ tweet }) => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const Tweet = ({ tweet }) => {
         Authorization: `Bearer ${token}`,
       };
       const res = await axios.post(
-        `https://twitterclonebackend-vt4v.onrender.com/api/v1/tweet/like/${id}`,
+        `${Base_Url}/api/v1/tweet/like/${id}`,
         {},
         { headers }
       );

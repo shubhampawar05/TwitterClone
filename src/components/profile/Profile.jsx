@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { followingUpdate } from "../../redux/UserSlice";
 import { getRefresh } from "../../redux/TweetSlice";
 import axios from "axios";
+import {Base_Url}from './../../Utils/Constants'
 
 const Profile = () => {
   const { id } = useParams();
@@ -32,13 +33,13 @@ const Profile = () => {
       if (user?.following?.includes(id)) {
         // Unfollow
         res = await axios.get(
-          `https://twitterclonebackend-vt4v.onrender.com/api/v1/user/UnFollow/${id}`,
+          `${Base_Url}/api/v1/user/UnFollow/${id}`,
           { headers }
         );
       } else {
         // Follow
         res = await axios.get(
-          `https://twitterclonebackend-vt4v.onrender.com/api/v1/user/follow/${id}`,
+          `${Base_Url}/api/v1/user/follow/${id}`,
           { headers }
         );
       }
