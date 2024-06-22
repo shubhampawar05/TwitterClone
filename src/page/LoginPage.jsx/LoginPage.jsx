@@ -33,7 +33,7 @@ const LoginPage = () => {
       return;
     }
     try {
-      const BaseUrl = Base_Url ;
+      const BaseUrl = `${Base_Url}/api/v1/user`;
       const headers = {
         "Content-Type": "application/json",
       };
