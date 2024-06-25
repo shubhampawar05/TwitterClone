@@ -4,8 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { getUser } from "../../redux/UserSlice";
-import {Base_Url} from './../../Utils/Constants'
-
+import { Base_Url } from './../../Utils/Constants'
 
 const LoginPage = () => {
   let { state } = useLocation();
@@ -17,8 +16,9 @@ const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // Added state for loading spinner
 
-  console.log("thisis form loginPage", state.some); 
+  console.log("thisis form loginPage", state.some);
   console.log(isLogin);
 
   useEffect(() => {
@@ -32,7 +32,9 @@ const LoginPage = () => {
       toast.error("Please fill in all required fields.");
       return;
     }
+
     try {
+      setIsLoading(true); // Set loading state to true
       const BaseUrl = `${Base_Url}/api/v1/user`;
       const headers = {
         "Content-Type": "application/json",
@@ -54,11 +56,11 @@ const LoginPage = () => {
 
       if (isLogin) {
         // Store token in localStorage
-        const { token } = res.data; 
+        const { token } = res.data;
         localStorage.setItem('token', token);
-        // set user profile data 
-        dispatch(getUser( res?.data?.user));
-      
+        // set user profile data
+        dispatch(getUser(res?.data?.user));
+
         navigate("/");
       } else {
         setIsLogin(true);
@@ -66,6 +68,8 @@ const LoginPage = () => {
     } catch (error) {
       toast.dismiss();
       toast.error(`${error}`);
+    } finally {
+      setIsLoading(false); // Set loading state to false after the request is complete
     }
   };
 
@@ -86,7 +90,7 @@ const LoginPage = () => {
               <h1 className="font-bold text-6xl">Happening now.</h1>
             </div>
             <h1 className="mt-4 mb-2 text-2xl font-bold">
-              {isLogin ? "Login" : "Singup"}
+              {isLogin ? "Login" : "Signup"}
             </h1>
             <div className="flex flex-col w-[55%]">
               {!isLogin && (
@@ -122,10 +126,17 @@ const LoginPage = () => {
                 className="outline-blue-500 border border-gray-800 px-3 py-2 rounded-full my-1 font-semibold"
               />
               <button
-                className="bg-[#1D9BF0] border-none py-2 my-4 rounded-full text-lg text-white"
+                className="bg-[#1D9BF0] border-none py-2 my-4 rounded-full text-lg text-white flex items-center justify-center"
                 onClick={submitHandler}
+                disabled={isLoading} // Disable the button while loading
               >
-                {isLogin ? "Login" : "Create Account"}
+                {isLoading ? (
+                  <div className="spinner-border text-white" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                ) : (
+                  isLogin ? "Login" : "Create Account"
+                )}
               </button>
               <h1>
                 {isLogin

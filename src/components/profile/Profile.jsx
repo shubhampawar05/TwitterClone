@@ -55,7 +55,7 @@ const Profile = () => {
   };
 
   if (!profile) {
-    return <div>Loading...</div>; // Handle loading state
+    return <div className="w-[60%] ml-[25%] px-4 border-l border-r border-[gray-500]">Loading...</div>; 
   }
 
   return (
