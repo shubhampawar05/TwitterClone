@@ -35,7 +35,7 @@ const Right = () => {
               </div>
               <div className="ml-2">
                 <h1 className="font-bold">{single.name}</h1>
-                <p className="text-sm">{`@${single.username.slice(0,12)}`}</p>
+                <p className="text-sm">{`@${single.username?.slice(0,12)}`}</p>
               </div>
             </div>
             <div>

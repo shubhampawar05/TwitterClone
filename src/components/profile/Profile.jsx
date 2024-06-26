@@ -101,7 +101,7 @@ const Profile = () => {
         </div>
         <div className=" p-4">
           <h1 className=" font-bold text-xl">{profile.name} </h1>
-          <h1 className=" text-gray-500 text-sm">{`@${profile.username}`}</h1>
+          <h1 className=" text-gray-500 text-sm">{`@${profile?.username}`}</h1>
         </div>
         <p className=" px-4 text-md">
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum

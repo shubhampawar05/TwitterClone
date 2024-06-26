@@ -79,12 +79,12 @@ const Tweet = ({ tweet }) => {
         <div className="flex flex-col ml-4 flex-1">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="font-bold">{tweet.userId.name}</h1>
+              <h1 className="font-bold">{tweet?.userId?.name}</h1>
               <h1 className="text-gray-500 text-sm">
-                {`@${tweet.userId.username} ${timeSince(tweet?.createdAt)}`}
+                {`@${tweet?.userId?.username} ${timeSince(tweet?.createdAt)}`}
               </h1>
             </div>
-            {user?._id === tweet?.userId._id && (
+            {user?._id === tweet?.userId?._id && (
               <div
                 onClick={() => deleteTweetHandler(tweet?._id)}
                 className="p-2 hover:bg-red-300 rounded-full cursor-pointer"
@@ -93,7 +93,7 @@ const Tweet = ({ tweet }) => {
               </div>
             )}
           </div>
-          <div className="my-2">{tweet.description}</div>
+          <div className="my-2">{tweet?.description}</div>
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2 text-xl hover:text-blue-400">
               <FaRegComment />
