@@ -5,14 +5,14 @@ import { BsEmojiSmile } from "react-icons/bs";
 import { CiLocationOn } from "react-icons/ci";
 import { LuCalendarClock } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
-import { getRefresh,getIsActive } from "../../redux/TweetSlice";
+import { getRefresh, getIsActive } from "../../redux/TweetSlice";
 import { toast } from "react-toastify";
 import axios from "axios";
-import {Base_Url} from './../../Utils/Constants'
+import { Base_Url } from "./../../Utils/Constants";
 
 const CreatPost = () => {
   const dispatch = useDispatch();
-  const isActive = useSelector(store=>store.tweet.isActive)
+  const isActive = useSelector((store) => store.tweet.isActive);
   const [description, setDescription] = useState("");
   const inputRef = useRef(null);
 
@@ -51,50 +51,62 @@ const CreatPost = () => {
     }
   };
 
+  const forYouFunc = () => {
+    dispatch(getIsActive(true));
+  };
+  const followingFun = () => {
+    dispatch(getIsActive(false));
+  };
 
-  const forYouFunc = ()=>{
-    dispatch(getIsActive(true))
-  }
-  const followingFun = ()=>{
-    dispatch(getIsActive(false))
-  }
   return (
     <div>
       {/* header */}
-      <div className=" border-2 flex text-center backdrop-blur-sm w-full ">
-        <p onClick={forYouFunc} className={` ${isActive === true ? "border-b-4 border-b-blue-600": null} w-1/2 border p-3 hover:bg-gray-200  hover:font-semibold`} >
+      <div className="border-2 flex text-center backdrop-blur-sm w-full">
+        <p
+          onClick={forYouFunc}
+          className={`w-1/2 border p-3 hover:bg-gray-200 hover:font-semibold ${
+            isActive === true
+              ? "border-b-4 border-b-blue-600 font-semibold"
+              : "font-normal"
+          }`}
+        >
           For You
         </p>
-        <p onClick={followingFun} className={` ${isActive === false ? "border-b-4 border-b-blue-600": null} w-1/2 border p-3 hover:bg-gray-200  hover:font-semibold`}>
+        <p
+          onClick={followingFun}
+          className={`w-1/2 border p-3 hover:bg-gray-200 hover:font-semibold ${
+            isActive === false
+              ? "border-b-4 border-b-blue-600 font-semibold"
+              : "font-normal"
+          }`}
+        >
           Following
         </p>
       </div>
       {/* post section */}
-      <div>
-        <div className="flex p-2 border-2 ">
-          <div>
-            <Avatar src="#" size="40" round={true} />
-          </div>
-          <div className=" flex flex-col w-full">
+      <div className="p-4 border-2">
+        <div className="flex items-start gap-4">
+          <Avatar src="#" size="40" round={true} />
+          <div className="flex-1">
             <input
               type="text"
-              placeholder=" What is happning..?"
+              placeholder="What's happening?"
               onChange={(e) => setDescription(e.target.value)}
               ref={inputRef}
-              className=" w-[90%] outline-none border-none p-2 ml-4"
+              className="w-full outline-none border-none p-2 rounded-full bg-gray-100"
             />
-            <div className=" flex justify-between px-8 w-full items-center">
-              <div className=" flex  gap-6">
-                <CiImageOn className=" text-xl text-blue-600" />{" "}
-                <BsEmojiSmile className=" text-xl text-blue-600" />
-                <LuCalendarClock className=" text-xl text-blue-600" />
-                <CiLocationOn className=" text-xl text-blue-600" />
+            <div className="flex justify-between items-center mt-2">
+              <div className="flex gap-4">
+                <CiImageOn className="text-xl text-blue-600" />
+                <BsEmojiSmile className="text-xl text-blue-600" />
+                <LuCalendarClock className="text-xl text-blue-600" />
+                <CiLocationOn className="text-xl text-blue-600" />
               </div>
               <button
-                className=" px-6 py-2 rounded-full bg-blue-500 text-white text-xl"
+                className="px-4 py-2 rounded-full bg-blue-500 text-white text-sm"
                 onClick={submitHandler}
               >
-                Post{" "}
+                Post
               </button>
             </div>
           </div>

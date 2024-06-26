@@ -4,7 +4,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { getUser } from "../../redux/UserSlice";
-import { Base_Url } from './../../Utils/Constants'
+import { Base_Url } from "./../../Utils/Constants";
+import { FaSpinner } from "react-icons/fa";
 
 const LoginPage = () => {
   let { state } = useLocation();
@@ -16,10 +17,7 @@ const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // Added state for loading spinner
-
-  console.log("thisis form loginPage", state.some);
-  console.log(isLogin);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (state && state.some !== undefined) {
@@ -34,7 +32,7 @@ const LoginPage = () => {
     }
 
     try {
-      setIsLoading(true); // Set loading state to true
+      setIsLoading(true);
       const BaseUrl = `${Base_Url}/api/v1/user`;
       const headers = {
         "Content-Type": "application/json",
@@ -55,12 +53,8 @@ const LoginPage = () => {
       );
 
       if (isLogin) {
-        // Store token in localStorage
-        const { token } = res.data;
-        localStorage.setItem('token', token);
-        // set user profile data
+        localStorage.setItem("token", res.data.token);
         dispatch(getUser(res?.data?.user));
-
         navigate("/");
       } else {
         setIsLogin(true);
@@ -69,87 +63,83 @@ const LoginPage = () => {
       toast.dismiss();
       toast.error(`${error}`);
     } finally {
-      setIsLoading(false); // Set loading state to false after the request is complete
+      setIsLoading(false);
     }
   };
 
   return (
-    <div>
-      <div className="w-screen h-screen flex items-center justify-center">
-        <div className="flex items-center justify-evenly w-[80%]">
-          <div>
-            <img
-              className="ml-5"
-              width={"300px"}
-              src="https://www.edigitalagency.com.au/wp-content/uploads/new-Twitter-logo-x-black-png-1200x1227.png"
-              alt="twitter-logo"
-            />
+    <div className="w-screen h-screen flex items-center justify-center bg-gray-100">
+      <div className="flex flex-col md:flex-row items-center justify-evenly w-full max-w-4xl p-8 bg-white rounded-lg shadow-lg">
+        <div className="hidden md:block">
+          <img
+            className="ml-5"
+            width={"300px"}
+            src="https://www.edigitalagency.com.au/wp-content/uploads/new-Twitter-logo-x-black-png-1200x1227.png"
+            alt="twitter-logo"
+          />
+        </div>
+        <div className="w-full md:w-1/2">
+          <div className="my-5">
+            <h1 className="font-bold text-4xl md:text-6xl">Happening now.</h1>
           </div>
-          <div>
-            <div className="my-5">
-              <h1 className="font-bold text-6xl">Happening now.</h1>
-            </div>
-            <h1 className="mt-4 mb-2 text-2xl font-bold">
-              {isLogin ? "Login" : "Signup"}
-            </h1>
-            <div className="flex flex-col w-[55%]">
-              {!isLogin && (
-                <>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Name"
-                    className="outline-blue-500 border border-gray-800 px-3 py-2 rounded-full my-1 font-semibold"
-                  />
-                  <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Username"
-                    className="outline-blue-500 border border-gray-800 px-3 py-2 rounded-full my-1 font-semibold"
-                  />
-                </>
+          <h1 className="mt-4 mb-2 text-2xl font-bold">
+            {isLogin ? "Login" : "Signup"}
+          </h1>
+          <div className="flex flex-col">
+            {!isLogin && (
+              <>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Name"
+                  className="outline-blue-500 border border-gray-300 px-3 py-2 rounded-full my-1 font-semibold"
+                />
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Username"
+                  className="outline-blue-500 border border-gray-300 px-3 py-2 rounded-full my-1 font-semibold"
+                />
+              </>
+            )}
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              className="outline-blue-500 border border-gray-300 px-3 py-2 rounded-full my-1 font-semibold"
+            />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              className="outline-blue-500 border border-gray-300 px-3 py-2 rounded-full my-1 font-semibold"
+            />
+            <button
+              className="bg-[#1D9BF0] border-none py-2 my-4 rounded-full text-lg text-white flex items-center justify-center"
+              onClick={submitHandler}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <FaSpinner className="animate-spin mr-2" />
+              ) : (
+                isLogin ? "Login" : "Create Account"
               )}
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-                className="outline-blue-500 border border-gray-800 px-3 py-2 rounded-full my-1 font-semibold"
-              />
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                className="outline-blue-500 border border-gray-800 px-3 py-2 rounded-full my-1 font-semibold"
-              />
-              <button
-                className="bg-[#1D9BF0] border-none py-2 my-4 rounded-full text-lg text-white flex items-center justify-center"
-                onClick={submitHandler}
-                disabled={isLoading} // Disable the button while loading
+            </button>
+            <h1 className="text-center">
+              {isLogin
+                ? "Don't have an account?"
+                : "Already have an account?"}
+              <span
+                className="font-bold text-blue-600 cursor-pointer ml-2"
+                onClick={() => setIsLogin(!isLogin)}
               >
-                {isLoading ? (
-                  <div className="spinner-border text-white" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
-                ) : (
-                  isLogin ? "Login" : "Create Account"
-                )}
-              </button>
-              <h1>
-                {isLogin
-                  ? "Do not have an account?"
-                  : "Already have an account?"}{" "}
-                <span
-                  className="font-bold text-blue-600 cursor-pointer"
-                  onClick={() => setIsLogin(!isLogin)}
-                >
-                  {isLogin ? "Signup" : "Login"}
-                </span>
-              </h1>
-            </div>
+                {isLogin ? "Signup" : "Login"}
+              </span>
+            </h1>
           </div>
         </div>
       </div>

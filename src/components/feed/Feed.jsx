@@ -10,7 +10,7 @@ const Feed = () => {
   console.log(tweets);
 
   return (
-    <div className="w-[50%]  ml-[25%] px-4">
+    <div className=" px-4">
       <CreatPost/>
       {tweets?.map((singelTweet)=>{
         return(

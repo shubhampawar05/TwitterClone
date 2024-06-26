@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "react-avatar";
 import { FaRegComment } from "react-icons/fa";
 import { AiOutlineRetweet } from "react-icons/ai";
@@ -9,12 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { getRefresh } from "../../redux/TweetSlice";
-import { timeSince } from './../../Utils/Constants';
-import { Base_Url } from './../../Utils/Constants';
+import { timeSince } from "./../../Utils/Constants";
+import { Base_Url } from "./../../Utils/Constants";
 
 const Tweet = ({ tweet }) => {
   const dispatch = useDispatch();
-  const user = useSelector(store => store.user.user);
+  const user = useSelector((store) => store.user.user);
+  const [isLiked, setIsLiked] = useState(tweet.like.some((like) => like === user?._id));
 
   const likeOrDislikeHandler = async (id) => {
     const token = localStorage.getItem("token");
@@ -35,6 +36,7 @@ const Tweet = ({ tweet }) => {
       dispatch(getRefresh());
       toast.dismiss();
       toast.success(res.data.message);
+      setIsLiked(!isLiked);
     } catch (error) {
       console.error("Error liking/disliking tweet:", error);
       toast.dismiss();
@@ -68,48 +70,47 @@ const Tweet = ({ tweet }) => {
   };
 
   return (
-    <div>
-      <div>
-        <div className="flex p-2 border-b-2 border">
-          <div>
-            <Avatar src="" size="40" round={true} />
-          </div>
+    <div className="bg-white rounded-lg shadow-md mb-4">
+      <div className="flex p-4">
+        <div>
+          <Avatar src="" size="40" round={true} />
+        </div>
 
-          <div className="flex flex-col ml-2 w-full">
-            <div className="flex items-center">
+        <div className="flex flex-col ml-4 flex-1">
+          <div className="flex items-center justify-between">
+            <div>
               <h1 className="font-bold">{tweet.userId.name}</h1>
-              <h1 className="text-gray-500 text-sm ml-2">
-                {`@${tweet.userId.username} ${timeSince(tweet?.createdAt)}`} 
+              <h1 className="text-gray-500 text-sm">
+                {`@${tweet.userId.username} ${timeSince(tweet?.createdAt)}`}
               </h1>
             </div>
-            <div>{tweet.description}</div>
-            <div className="flex justify-between px-2 py-2 w-full">
-              <div className="flex items-center gap-1 text-xl hover:text-blue-400 w-">
-                <FaRegComment />
-                <span className="text-sm">5 </span>
-              </div>
-
+            {user?._id === tweet?.userId._id && (
               <div
-                className="flex items-center gap-1 text-xl hover:text-blue-400"
-                onClick={() => likeOrDislikeHandler(tweet?._id)}
+                onClick={() => deleteTweetHandler(tweet?._id)}
+                className="p-2 hover:bg-red-300 rounded-full cursor-pointer"
               >
-                <CiHeart />
-                <span className="text-sm">{tweet?.like?.length} </span>
+                <MdOutlineDeleteOutline size="24px" />
               </div>
-              <div className="flex items-center gap-1 text-xl hover:text-blue-400">
-                <CiBookmark />
-              </div>
+            )}
+          </div>
+          <div className="my-2">{tweet.description}</div>
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-2 text-xl hover:text-blue-400">
+              <FaRegComment />
+              <span className="text-sm">5</span>
+            </div>
 
-              {user?._id === tweet?.userId._id && (
-                <div
-                  onClick={() => deleteTweetHandler(tweet?._id)}
-                  className="flex items-center"
-                >
-                  <div className="p-2 hover:bg-red-300 rounded-full cursor-pointer">
-                    <MdOutlineDeleteOutline size="24px" />
-                  </div>
-                </div>
-              )}
+            <div
+              className={`flex items-center gap-2 text-xl cursor-pointer ${
+                isLiked ? "text-red-500" : "hover:text-blue-400"
+              }`}
+              onClick={() => likeOrDislikeHandler(tweet?._id)}
+            >
+              {isLiked ? <CiHeart className=" text-red-600 " /> : <CiHeart />}
+              <span className="text-sm">{tweet?.like?.length}</span>
+            </div>
+            <div className="flex items-center gap-2 text-xl hover:text-blue-400">
+              <CiBookmark />
             </div>
           </div>
         </div>
