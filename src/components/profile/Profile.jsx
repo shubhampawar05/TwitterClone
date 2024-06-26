@@ -87,7 +87,7 @@ const Profile = () => {
             />
           </span>
           {profile?._id === user?._id ? (
-            <span className=" p-2 border border-black rounded-full mt-2">
+            <span className=" p-2 border border-black rounded-full mt-2 cursor-pointer">
               Edit Profile
             </span>
           ) : (
